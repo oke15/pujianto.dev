@@ -332,6 +332,8 @@ Yang perlu dipastikan:
 
 Backup yang belum pernah di-restore belum bisa disebut backup. Lakukan uji restore di **staging**, jangan di production:
 
+> butuh package : https://github.com/stefanzweifel/laravel-backup-restore
+
 ```bash
 php artisan backup:restore
 ```
@@ -364,7 +366,7 @@ Cek juga `storage/logs/laravel.log` saat proses backup gagal — biasanya pesan 
 - [ ] `backup:run --only-db` dan `backup:list` berhasil.
 - [ ] Uji restore di staging berhasil.
 
-Selamat mencoba. 
+Selamat mencoba.
 
 ::: tip Orang Bijak Berkata:
 _Backup yang baik bukan yang paling canggih, tapi yang rutin jalan dan pernah terbukti bisa di-restore._
