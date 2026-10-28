@@ -7,6 +7,10 @@ description: Panduan deploy auto backup database aplikasi laravel
 
 Berikut alur proses setup auto backup **database** aplikasi laravel menggunakan package [spatie/laravel-backup](https://spatie.be/docs/laravel-backup).
 
+::: tip
+tulisan manusia, butuh yang terstruktur dan rapi _(AI Generate)_ [BACA DI SINI](/articles-ai/200261028-auto-backup-laravel-app.md)
+:::
+
 ## 1. Siapkan storage S3 atau sejenisnya
 
 - Gunakan layanan storage eksternal seperti AWS S3 atau Cloudflare R2.
@@ -38,10 +42,10 @@ Berikut alur proses setup auto backup **database** aplikasi laravel menggunakan 
 
   .env disk `r2_backup`
 
-  ```env
+  ```dotenv
   R2_BACKUP_ACCESS_KEY_ID=
   R2_BACKUP_SECRET_ACCESS_KEY=
-  R2_BACKUP_BUCKET="backup-db"
+  R2_BACKUP_BUCKET="backup_bucket_name"
   R2_BACKUP_ENDPOINT=
   ```
 
@@ -71,19 +75,19 @@ Sesuaikan `config/backup.php`, edit yang dibutuhkan saja, berikut beberapa confi
 
 - timestamp file dump
 
-  ```php
+  ```bash
   'database_dump_file_timestamp_format' => 'Y-m-d-H-i-s'
   ```
 
 - extenstion file hasil dump
 
-  ```php
+  ```bash
   'database_dump_file_extension' => 'backup',
   ```
 
 - prefix file
 
-  ```php
+  ```bash
   'filename_prefix' => env('DB_DATABASE').'_'.env('APP_ENV').'_'
   ```
 
@@ -139,14 +143,14 @@ Schedule::command('backup:monitor')->daily()->at('02:00')->withoutOverlapping();
 - Secara default notifikasi via email, melalui config `mail`.
 - Opsional, tambahkan channel `discord` dengan install package [spatie/laravel-discord-alerts](https://github.com/spatie/laravel-discord-alerts).
 
-  ```php
+  ```bash
   composer require spatie/laravel-discord-alerts
   ```
 
 - setup variable `DISCORD_ALERT_WEBHOOK` pada .env, isinya berupa `webhook_url` dari aplikasi discord.
 - setup channel `discord` pada `config/backup.php`.
 
-  ```php
+  ```bash
   'discord' => [
           'webhook_url' => env('DISCORD_ALERT_WEBHOOK'), //  [!code warning]
           /*
@@ -186,15 +190,19 @@ Schedule::command('backup:monitor')->daily()->at('02:00')->withoutOverlapping();
 
 - .env untuk notifikasi
 
-  ```env
+  ```dotenv
   BACKUP_NOTIFICATION_EMAIL="your@gmail.com"
   DISCORD_ALERT_WEBHOOK="webhook url..."
   ```
 
 ## Testing **local**
 
-```php
+```bash
 php artisan backup:run --only-db
 ```
 
 Selamat mencoba.
+
+::: tip Orang Bijak Berkata:
+_Backup yang baik bukan yang paling canggih, tapi yang rutin jalan dan pernah terbukti bisa di-restore._
+:::

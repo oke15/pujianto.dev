@@ -15,7 +15,12 @@ export default defineConfig({
       {
         text: "Artikel",
         link: "/articles/200261028-auto-backup-laravel-app",
-        activeMatch: "/article",
+        activeMatch: "/articles/",
+      },
+      {
+        text: "Artikel (AI Mode)",
+        link: "/articles-ai/200261028-auto-backup-laravel-app",
+        activeMatch: "/article-ai/",
       },
     ],
 
@@ -24,6 +29,12 @@ export default defineConfig({
         {
           text: "Daftar Article",
           items: articleItems(),
+        },
+      ],
+      "/articles-ai/": [
+        {
+          text: "Article (AI Gen)",
+          items: articleAiItems(),
         },
       ],
     },
@@ -44,6 +55,10 @@ export default defineConfig({
     image: {
       lazyLoad: true,
     },
+    // Shiki memakai id "dotenv" untuk file .env, bukan "env"
+    languageAlias: {
+      env: "dotenv",
+    },
   },
 });
 
@@ -52,6 +67,14 @@ function articleItems() {
     {
       text: "Auto Backup Laravel",
       link: "/articles/200261028-auto-backup-laravel-app",
+    },
+  ];
+}
+function articleAiItems() {
+  return [
+    {
+      text: "Auto Backup Laravel",
+      link: "/articles-ai/200261028-auto-backup-laravel-app",
     },
   ];
 }
