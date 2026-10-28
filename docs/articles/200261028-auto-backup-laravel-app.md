@@ -15,6 +15,7 @@ Berikut alur proses setup auto backup **database** aplikasi laravel menggunakan 
   composer require league/flysystem-aws-s3-v3
   ```
 - Siapkan pilihan disk baru pada `config/filesystems.php`, bisa diberikan nama `r2_backup`.
+
   ```php
   'r2_backup' => [
           'driver' => 's3',
@@ -33,6 +34,15 @@ Berikut alur proses setup auto backup **database** aplikasi laravel menggunakan 
           ],
           'throw' => true,
       ],
+  ```
+
+  .env disk `r2_backup`
+
+  ```env
+  R2_BACKUP_ACCESS_KEY_ID=
+  R2_BACKUP_SECRET_ACCESS_KEY=
+  R2_BACKUP_BUCKET="backup-db"
+  R2_BACKUP_ENDPOINT=
   ```
 
 ## 2. Install `spatie/laravel-backup`
@@ -124,12 +134,6 @@ Schedule::command('backup:run --only-db')->daily()->at('01:30')->withoutOverlapp
 Schedule::command('backup:monitor')->daily()->at('02:00')->withoutOverlapping();
 ```
 
-Testing **local** run:
-
-```php
-php artisan backup:run --only-db
-```
-
 ## 3. Notifikasi
 
 - Secara default notifikasi via email, melalui config `mail`.
@@ -142,7 +146,7 @@ php artisan backup:run --only-db
 - setup variable `DISCORD_ALERT_WEBHOOK` pada .env, isinya berupa `webhook_url` dari aplikasi discord.
 - setup channel `discord` pada `config/backup.php`.
 
-  ````php
+  ```php
   'discord' => [
           'webhook_url' => env('DISCORD_ALERT_WEBHOOK'), //  [!code warning]
           /*
@@ -155,8 +159,7 @@ php artisan backup:run --only-db
            */
           'avatar_url' => '',
       ],
-      ```
-  ````
+  ```
 
 - tambahkan channel notifikasi `discord`
 
@@ -179,6 +182,19 @@ php artisan backup:run --only-db
             CleanupWasSuccessfulNotification::class => ['mail', 'discord'], // [!code ++]
         ],
 ]
+```
+
+- .env untuk notifikasi
+
+  ```env
+  BACKUP_NOTIFICATION_EMAIL="your@gmail.com"
+  DISCORD_ALERT_WEBHOOK="webhook url..."
+  ```
+
+## Testing **local**
+
+```php
+php artisan backup:run --only-db
 ```
 
 Selamat mencoba.
