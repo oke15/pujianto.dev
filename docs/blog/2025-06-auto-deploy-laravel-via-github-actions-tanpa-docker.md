@@ -1,6 +1,7 @@
 ---
 title: Auto Deploy Laravel via GitHub Actions (Tanpa Docker)
 description: Rangkuman cara auto deploy laravael via github action tanpa docker
+layout: "home"
 # sidebar: false
 ---
 
@@ -14,7 +15,6 @@ Ini adalah rangkuman lengkap tentang cara melakukan auto deploy Laravel mengguna
 - Server ringan (RAM 2GB), tidak menggunakan Docker
 - User `deploy` non-root, tanpa password
 - Aman dan terpisah antara:
-
   - SSH key untuk **GitHub → Server**
   - SSH key untuk **Server → GitHub**
 
@@ -41,7 +41,6 @@ ssh-keygen -t ed25519 -f ~/.ssh/github_deploy_key -C "github-deploy"
 ```
 
 - **Upload private key** ke GitHub Repo:
-
   - `Settings → Secrets → Actions → SSH_PRIVATE_KEY`
   - Value: isi dari `github_deploy_key` (private)
 

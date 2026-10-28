@@ -1,57 +1,57 @@
-import { defineConfig } from 'vitepress'
+import { defineConfig } from "vitepress";
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   title: "Pujianto DEV",
   description: "Kumpulan ide project dan catatan saat gabut menulis kode",
   cleanUrls: true,
+  lastUpdated: true,
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
-    logo: '/pujiantodev.svg',
+    logo: "/pujiantodev.svg",
     nav: [
-      { text: 'Home', link: '/' },
-      { text: 'Daftar Blog', link: '/blog/2024-03-deploy-laravel' }
+      { text: "Home", link: "/" },
+      // { text: 'Daftar Blog', link: '/blog' },
+      {
+        text: "Artikel",
+        link: "/articles/200261028-auto-backup-laravel-app",
+        activeMatch: "/article",
+      },
     ],
 
     sidebar: {
-      '/blog/': [
+      "/articles/": [
         {
-          text: 'Daftar Blog',
-          items: sidebarBlog()
-        }
-      ]
+          text: "Daftar Article",
+          items: articleItems(),
+        },
+      ],
     },
 
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/pujiantodev/pujianto.dev' }
+      { icon: "github", link: "https://github.com/pujiantodev/pujianto.dev" },
     ],
     search: {
-      provider: 'local'
+      provider: "local",
     },
-  }
-})
+    outline: {
+      level: "deep",
+      label: "Semua di halaman ini",
+    },
+  },
+  markdown: {
+    toc: { level: [1, 2, 3] },
+    image: {
+      lazyLoad: true,
+    },
+  },
+});
 
-function sidebarBlog() {
+function articleItems() {
   return [
     {
-      text: 'Daftar Dev Tools',
-      link: '/blog/2025-09-dev-tools'
+      text: "Auto Backup Laravel",
+      link: "/articles/200261028-auto-backup-laravel-app",
     },
-    {
-      text: 'Deploy Laravel',
-      link: '/blog/2024-03-deploy-laravel'
-    },
-    {
-      text: 'Helper Generate Code',
-      link: '/blog/2024-03-helper-generate-code'
-    },
-    {
-      text: 'Auto Deploy Laravel via GitHub Actions (Tanpa Docker)',
-      link: '/blog/2025-06-auto-deploy-laravel-via-github-actions-tanpa-docker'
-    },
-    {
-      text: 'Ekspor CSV Jutaan Data di Laravel Tanpa Library Eksternal (Hemat RAM & Otomatis Upload ke S3)',
-      link: '/blog/2025-06-ekspor-csv-jutaan-data-di-laravel-tanpa-laravel-excel-hemat-ram-otomatis-upload-ke-s3'
-    },
-  ]
+  ];
 }
